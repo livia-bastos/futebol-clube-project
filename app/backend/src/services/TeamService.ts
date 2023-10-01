@@ -9,11 +9,6 @@ export default class TeamService {
     private teamModel: ITeamModel = new TeamModel(),
   ) { }
 
-  // public async createBook(book: NewEntity<IBook>): Promise<ServiceResponse<IBook>> {
-  //   const newBook = await this.bookModel.create(book);
-  //   return { status: 'SUCCESSFUL', data: newBook };
-  // }
-
   public async getAllTeams(): Promise<ServiceResponse<ITeam[]>> {
     const allTeams = await this.teamModel.findAll();
     return { status: 'SUCCESSFUL', data: allTeams };
