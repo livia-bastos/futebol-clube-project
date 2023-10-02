@@ -5,15 +5,12 @@ import chaiHttp = require('chai-http');
 import SequelizeTeam from '../database/models/TeamModel'
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
-
-import { Response } from 'superagent';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Testa a rota team', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -56,7 +53,7 @@ const teams = [team];
   it('Retorna um time pelo id', async function() {
     sinon.stub(SequelizeTeam, 'findByPk').resolves(team as any);
 
-    const { status, body } = await chai.request(app).get('/team/1');
+    const { status, body } = await chai.request(app).get('/teams/1');
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(team);

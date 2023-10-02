@@ -10,7 +10,7 @@ export default class UserService {
     private userModel: IUserModel = new UserModel(),
   ) { }
 
-  public async allowLogin(user: NewEntity<IUser>): Promise<ServiceResponse<IUser[]> | undefined> {
+  public async allowLogin(user: NewEntity<IUser>): Promise<ServiceResponse<IUser> | undefined> {
     const foundUser = await this.userModel.findAll({
       email: user.email,
     });
@@ -20,6 +20,11 @@ export default class UserService {
       return;
     }
 
-    return { status: 'SUCCESSFUL', data: foundUser };
+    return { status: 'SUCCESSFUL', data: foundUser[0] };
   }
+
+  // public async returnRole(): Promise<ServiceResponse<IUser[]> | undefined> {
+  //   const userRole = await this.userModel.findAll();
+  //   return { status: 'SUCCESSFUL', data: userRole };
+  // }
 }
