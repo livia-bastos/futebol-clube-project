@@ -10,7 +10,8 @@ export default class UsersController {
   public async allowLogin(req: Request, res: Response) {
     const serviceResponse = await this.userService.allowLogin(req.body);
     if (!serviceResponse) return res.status(401).json({ message: 'Invalid email or password' });
-    const token = jwt.sign(serviceResponse.data, 'jwt_secret', {
+    req.body.role = serviceResponse.data.role;
+    const token = jwt.sign(req.body, 'jwt_secret', {
       expiresIn: '1h',
     });
     return res.status(200).json({ token });
