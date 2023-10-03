@@ -1,3 +1,4 @@
+import SequelizeTeam from '../database/models/TeamModel';
 import SequelizeUser from '../database/models/MatchesModel';
 import { IMatches } from '../Interfaces/matches/IMatches';
 import { IMatchesModel } from '../Interfaces/matches/IMatchesModel';
@@ -12,5 +13,35 @@ export default class MatchesModel implements IMatchesModel {
     const { id, homeTeamId, homeTeamGoals,
       awayTeamId, awayTeamGoals, inProgress }: IMatches = dbData;
     return { id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress };
+  }
+
+  async findAll(): Promise<IMatches[]> {
+    const dbData = await this.model.findAll({ include: [
+      { model: SequelizeTeam,
+        as: 'homeTeam',
+        attributes: ['teamName'],
+      },
+      { model: SequelizeTeam,
+        as: 'awayTeam',
+        attributes: ['teamName'],
+      },
+    ] });
+    return dbData;
+  }
+
+  async findInProgress(inProgress: string): Promise<IMatches[]> {
+    const dbData = await this.model.findAll({ include: [
+      { model: SequelizeTeam,
+        as: 'homeTeam',
+        attributes: ['teamName'],
+      },
+      { model: SequelizeTeam,
+        as: 'awayTeam',
+        attributes: ['teamName'],
+      },
+    ],
+    where: { inProgress: JSON.parse(inProgress) },
+    });
+    return dbData;
   }
 }
