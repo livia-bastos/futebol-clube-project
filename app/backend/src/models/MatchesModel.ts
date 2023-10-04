@@ -44,4 +44,10 @@ export default class MatchesModel implements IMatchesModel {
     });
     return dbData;
   }
+
+  async update(id: IMatches['id'], data: Partial<NewEntity<IMatches>>): Promise<number> {
+    const [affectedRows] = await this.model.update(data, { where: { id } });
+
+    return affectedRows;
+  }
 }
