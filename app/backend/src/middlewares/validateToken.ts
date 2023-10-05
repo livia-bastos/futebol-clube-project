@@ -8,7 +8,7 @@ class validateToken {
       if (!authorization) return res.status(401).json({ message: 'Token not found' });
       const token = authorization.split(' ')[1];
       const payload = jwt.verify(token, 'jwt_secret');
-      req.body = payload;
+      req.body.user = payload;
       return next();
     } catch (err) {
       return res.status(401).json({ message: 'Token must be a valid token' });

@@ -21,6 +21,7 @@ export default class MatchesController {
     const id = Number(req.params.id);
     let match;
     let message;
+    console.log(req.body.awayTeamGoals);
     if (!req.body.awayTeamGoals) {
       match = { inProgress: false };
       message = 'Finished';
@@ -28,7 +29,6 @@ export default class MatchesController {
       match = req.body;
     }
     const serviceResponse = await this.matchesService.updateMatch(id, match);
-
     if (message) {
       return res.status(200).json({ message });
     }
