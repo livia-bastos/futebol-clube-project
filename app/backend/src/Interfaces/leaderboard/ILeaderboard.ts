@@ -1,5 +1,4 @@
 export interface ILeaderboard {
-  findAll(): unknown
   name: string
   totalPoints: number
   totalGames: number
