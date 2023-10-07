@@ -18,4 +18,10 @@ router.patch(
   (req: Request, res: Response) => matchesController.updateMatch(req, res),
 );
 
+router.post(
+  '/',
+  validateToken.validateToken,
+  (req: Request, res: Response) => matchesController.createMatch(req, res),
+);
+
 export default router;
